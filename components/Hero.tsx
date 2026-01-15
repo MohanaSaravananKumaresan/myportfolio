@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import {motion, Variants} from "framer-motion";
 
 const containerVariants: Variants = {
     hidden: {
@@ -30,7 +30,6 @@ const itemVariants: Variants = {
 };
 
 
-
 export default function Hero() {
     return (
         <motion.section
@@ -40,57 +39,57 @@ export default function Hero() {
             animate="visible"
         >
 
-        <motion.div className="max-w-3xl text-center">
-            <motion.p
-                variants={itemVariants}
-                className="text-sm uppercase tracking-widest text-indigo-400 mb-4"
-            >
+            <motion.div className="max-w-3xl text-center">
+                <motion.p
+                    variants={itemVariants}
+                    className="text-sm uppercase tracking-widest text-indigo-400 mb-4"
+                >
 
-            Personal Portfolio
+                    Personal Portfolio
                 </motion.p>
 
-            <motion.h1
-                variants={itemVariants}
-                className="text-4xl md:text-6xl font-bold leading-tight mb-6"
-            >
+                <motion.h1
+                    variants={itemVariants}
+                    className="text-4xl md:text-6xl font-bold leading-tight mb-6"
+                >
 
-            I build modern,
+                    I build modern,
                     <span className="block text-indigo-400">
             scalable web systems
           </span>
                 </motion.h1>
 
-            <motion.p
-                variants={itemVariants}
-                className="text-gray-400 text-lg mb-10"
-            >
+                <motion.p
+                    variants={itemVariants}
+                    className="text-gray-400 text-lg mb-10"
+                >
 
-            A space to showcase my work, thinking, and engineering journey.
+                    A space to showcase my work, thinking, and engineering journey.
                 </motion.p>
 
-            <motion.div
-                variants={itemVariants}
-                className="flex justify-center gap-4"
-            >
-
-                <motion.a
-                    href="#projects"
-                    className="px-6 py-3 rounded-full bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.97 }}
+                <motion.div
+                    variants={itemVariants}
+                    className="flex justify-center gap-4"
                 >
-                    View Work
-                </motion.a>
 
-                <motion.a
-                    href="#contact"
-                    className="px-6 py-3 rounded-full border border-white/20 hover:border-indigo-400 transition"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.97 }}
-                >
-                    Contact
-                </motion.a>
-            </motion.div>
+                    <motion.a
+                        href="#projects"
+                        className="px-6 py-3 rounded-full bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition"
+                        whileHover={{y: -2}}
+                        whileTap={{scale: 0.97}}
+                    >
+                        View Work
+                    </motion.a>
+
+                    <motion.a
+                        href="#contact"
+                        className="px-6 py-3 rounded-full border border-white/20 hover:border-indigo-400 transition"
+                        whileHover={{y: -2}}
+                        whileTap={{scale: 0.97}}
+                    >
+                        Contact
+                    </motion.a>
+                </motion.div>
             </motion.div>
         </motion.section>
     );

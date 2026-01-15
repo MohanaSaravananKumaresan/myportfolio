@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import {motion, Variants} from "framer-motion";
 
 const sectionVariants: Variants = {
     hidden: {
@@ -23,7 +23,7 @@ type SectionProps = {
     children: React.ReactNode;
 };
 
-export default function Section({ id, title, children }: SectionProps) {
+export default function Section({id, title, children}: SectionProps) {
     return (
         <motion.section
             id={id}
@@ -31,11 +31,11 @@ export default function Section({ id, title, children }: SectionProps) {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{once: true, amount: 0.2}}
         >
 
-        <h2 className="text-3xl font-semibold mb-12">
-            {title}
+            <h2 className="text-3xl font-semibold mb-12">
+                {title}
             </h2>
 
             <div className="text-gray-300">

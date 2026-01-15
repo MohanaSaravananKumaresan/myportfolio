@@ -6,8 +6,8 @@ import ProjectCard from "@/components/ProjectCard";
 export default function Home() {
     return (
         <main className="bg-black text-white">
-            <Navbar />
-            <Hero />
+            <Navbar/>
+            <Hero/>
 
             <Section id="experience" title="Experience">
                 <p>
