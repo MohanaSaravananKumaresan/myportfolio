@@ -1,96 +1,124 @@
 "use client";
 
-import {motion, Variants} from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const containerVariants: Variants = {
-    hidden: {
-        opacity: 0,
-    },
+    hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-        },
+        transition: { staggerChildren: 0.22 },
     },
 };
 
 const itemVariants: Variants = {
-    hidden: {
-        opacity: 0,
-        y: 20,
-    },
+    hidden: { opacity: 0, y: 30 },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.6,
+            duration: 0.9,
             ease: "easeOut",
         },
     },
 };
 
-
 export default function Hero() {
     return (
-        <motion.section
-            className="min-h-screen flex items-center justify-center px-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+        <section
+            className="
+                relative z-0
+                min-h-screen px-6
+                pt-[120px] pb-32
+            "
         >
+            <motion.div
+                className="max-w-6xl mx-auto flex flex-col"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                {/* HERO TEXT */}
+                <motion.div variants={itemVariants}>
+                    <h1 className="text-4xl md:text-6xl font-semibold leading-tight max-w-4xl">
+                        I design backend systems
+                        <br />
+                        that are meant to{" "}
+                        <span className="relative text-indigo-400 tracking-tight">
+                            last.
+                            <span
+                                className="
+                                    absolute left-0 -bottom-1
+                                    w-full h-px
+                                    bg-gradient-to-r
+                                    from-indigo-400/0
+                                    via-indigo-400
+                                    to-indigo-400/0
+                                "
+                            />
+                        </span>
+                    </h1>
 
-            <motion.div className="max-w-3xl text-center">
-                <motion.p
-                    variants={itemVariants}
-                    className="text-sm uppercase tracking-widest text-indigo-400 mb-4"
-                >
+                    <p className="mt-10 text-lg text-gray-400 max-w-2xl leading-relaxed">
+                        Not just until launch — but through growth, rewrites,
+                        migrations, and the moments where assumptions break.
+                    </p>
+                </motion.div>
 
-                    Senior Backend Engineer
-                </motion.p>
-
-                <motion.h1
-                    variants={itemVariants}
-                    className="text-4xl md:text-6xl font-bold leading-tight mb-6"
-                >
-
-                    I build modern,
-                    <span className="block text-indigo-400">
-            scalable web systems
-          </span>
-                </motion.h1>
-
-                <motion.p
-                    variants={itemVariants}
-                    className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed"
-                >
-
-                A space to showcase my work, thinking, and engineering journey.
-                </motion.p>
-
+                {/* QUOTE / THINKING BOX */}
                 <motion.div
                     variants={itemVariants}
-                    className="flex justify-center gap-4"
+                    whileHover={{ y: -4 }}
+                    className="
+                        relative
+                        mt-16 max-w-xl
+                        rounded-2xl
+                        bg-black/70
+                        backdrop-blur-xl
+                        border border-white/10
+                        px-8 py-6
+                        text-gray-300
+                        transition-all duration-300
+                        hover:border-indigo-400/40
+                        hover:shadow-lg hover:shadow-indigo-500/10
+                        md:ml-24
+                    "
                 >
+                    <span
+                        className="
+                            hidden md:block
+                            absolute -left-2 top-10
+                            w-4 h-4
+                            bg-black/70
+                            border-l border-b border-white/10
+                            rotate-45
+                        "
+                    />
 
-                    <motion.a
-                        href="#projects"
-                        className="px-6 py-3 rounded-full bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition"
-                        whileHover={{y: -2}}
-                        whileTap={{scale: 0.97}}
-                    >
-                        View Work
-                    </motion.a>
+                    <p className="text-sm leading-relaxed text-center md:text-left">
+                        “Design is not just what it looks like and feels like.
+                        Design is how it works.”
+                    </p>
 
-                    <motion.a
-                        href="#contact"
-                        className="px-6 py-3 rounded-full border border-white/20 hover:border-indigo-400 transition"
-                        whileHover={{y: -2}}
-                        whileTap={{scale: 0.97}}
-                    >
-                        Contact
-                    </motion.a>
+                    <p className="mt-4 text-xs text-gray-500 text-center">
+                        — Steve Jobs
+                    </p>
                 </motion.div>
+
+                {/* SCROLL HOOK */}
+                <motion.a
+                    variants={itemVariants}
+                    href="#experience"
+                    className="
+                        mt-16
+                        text-sm text-gray-500
+                        hover:text-indigo-400
+                        transition
+                        cursor-pointer
+                    "
+                >
+                    Scroll to see how I think — principles above, practice below ↓
+                </motion.a>
             </motion.div>
-        </motion.section>
+        </section>
     );
 }

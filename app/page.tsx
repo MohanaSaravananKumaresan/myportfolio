@@ -2,12 +2,15 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import ProjectCard from "@/components/ProjectCard";
+import Achievements from "@/components/Achievements";
+
 
 export default function Home() {
     return (
         <main className="bg-black text-white">
             <Navbar/>
             <Hero/>
+            <Achievements/>
 
             <Section id="experience" title="Experience">
                 <div className="space-y-16">
