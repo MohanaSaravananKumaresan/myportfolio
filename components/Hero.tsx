@@ -45,7 +45,7 @@ export default function Hero() {
                     className="text-sm uppercase tracking-widest text-indigo-400 mb-4"
                 >
 
-                    Personal Portfolio
+                    Senior Backend Engineer
                 </motion.p>
 
                 <motion.h1
@@ -61,10 +61,10 @@ export default function Hero() {
 
                 <motion.p
                     variants={itemVariants}
-                    className="text-gray-400 text-lg mb-10"
+                    className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed"
                 >
 
-                    A space to showcase my work, thinking, and engineering journey.
+                A space to showcase my work, thinking, and engineering journey.
                 </motion.p>
 
                 <motion.div
