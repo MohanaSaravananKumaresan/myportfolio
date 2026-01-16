@@ -1,62 +1,107 @@
 "use client";
 
-import {
-    ShieldCheck,
-    TrendingUp,
-    Wrench,
-    Rocket,
-    ArrowDown,
-} from "lucide-react";
+import { ArrowDown, Award, Bot, Code2, Cpu, ShieldCheck, Wrench } from "lucide-react";
 
 type AchievementItem = {
     title: string;
     icon: any;
-    businessValue: string;
-    points: string[];
+    value: string;
+    description: string;
+    highlights: string[];
 };
 
 const ACHIEVEMENTS: AchievementItem[] = [
     {
-        title: "Reliability & Stability",
+        title: "CI/CD Automation → $0.5M Client Value",
         icon: ShieldCheck,
-        businessValue: "Reduced operational risk and downtime",
-        points: [
-            "Stabilized backend services to reduce production incidents and firefighting",
-            "Improved failure handling and recovery paths across critical systems",
-            "Increased release confidence through predictable, repeatable deployments",
+        value: "$0.5M",
+        description:
+            "Automated Docker image upgrades inside CI/CD pipelines to eliminate version drift and reduce manual intervention.",
+        highlights: [
+            "Removed manual upgrade overhead across multiple environments",
+            "Improved deployment reliability and release consistency",
+            "Reduced operational risk caused by version mismatches",
         ],
     },
     {
-        title: "Scale & Performance",
-        icon: TrendingUp,
-        businessValue: "Enabled growth without constant rewrites",
-        points: [
-            "Designed backend services to handle increased load without architectural churn",
-            "Improved throughput and response consistency under peak traffic",
-            "Proactively addressed scaling bottlenecks before they impacted users",
+        title: "z/OS REST Simplification → $0.7M Value",
+        icon: Cpu,
+        value: "$0.7M",
+        description:
+            "Integrated SAR (Service Access Representation) + AAR (API Access Representation) into a combined z/OS REST implementation.",
+        highlights: [
+            "Simplified API access patterns across teams",
+            "Reduced duplication of effort and integration complexity",
+            "Improved maintainability and reuse across services",
         ],
     },
     {
-        title: "Modernization & Risk Reduction",
+        title: "Internal Testing Tools → $0.4M Efficiency Gains",
         icon: Wrench,
-        businessValue: "Lowered long-term cost and technical risk",
-        points: [
-            "Modernized legacy components to simplify operations and maintenance",
-            "Reduced system complexity by replacing fragile patterns with sustainable designs",
-            "Improved maintainability and onboarding by clarifying architectural boundaries",
+        value: "$0.4M",
+        description:
+            "Built internal tools that streamlined functional + integration testing and improved developer onboarding.",
+        highlights: [
+            "Faster validation cycles and more predictable test execution",
+            "Lower effort for new developers to adopt the workflow",
+            "Improved confidence in changes before release",
         ],
     },
     {
-        title: "Delivery & Execution Excellence",
-        icon: Rocket,
-        businessValue: "Faster delivery with controlled change",
-        points: [
-            "Strengthened CI/CD pipelines to reduce release friction and regressions",
-            "Shortened feedback loops between development and production",
-            "Enabled teams to ship changes more frequently with higher confidence",
+        title: "AI-Assisted Testing → Higher Developer Productivity",
+        icon: Bot,
+        value: "AI",
+        description:
+            "Integrated GitHub Copilot Chat into test automation workflows for faster debugging and test generation.",
+        highlights: [
+            "Enabled intelligent test case generation",
+            "Reduced manual effort in debugging and code writing",
+            "Improved test coverage through faster iteration",
+        ],
+    },
+    {
+        title: "Code Quality Automation → $0.4M Delivery Value",
+        icon: Code2,
+        value: "$0.4M",
+        description:
+            "Created additional Gradle Spotless scripts for automated formatting + verification across teams.",
+        highlights: [
+            "Consistent coding standards with automated enforcement",
+            "Reduced review overhead and formatting noise",
+            "Improved delivery speed with fewer avoidable iterations",
+        ],
+    },
+    {
+        title: "Awards & Recognition",
+        icon: Award,
+        value: "USAA",
+        description:
+            "Recognized for innovation and efficiency improvements in secure application development.",
+        highlights: [
+            "USAA ‘Excellence Award’",
+            "USAA ‘4ward Award’",
+            "Consistent recognition for impact-driven engineering",
         ],
     },
 ];
+
+function ValueChip({ text }: { text: string }) {
+    return (
+        <span
+            className="
+        inline-flex items-center
+        px-3 py-1
+        rounded-full
+        text-xs font-medium
+        bg-indigo-500/10
+        text-indigo-300
+        border border-indigo-400/20
+      "
+        >
+      {text}
+    </span>
+    );
+}
 
 export default function Achievements() {
     return (
@@ -65,59 +110,65 @@ export default function Achievements() {
                 {/* Header */}
                 <div className="max-w-3xl mb-20">
                     <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-                        Impact & Outcomes
+                        Impact that shows up in business value
                     </h2>
                     <p className="text-lg text-gray-400 leading-relaxed">
-                        A selection of outcomes where technical decisions
-                        translated directly into business value — improving
-                        reliability, scalability, and delivery velocity.
+                        Not just “worked on features” — measurable outcomes that improved delivery,
+                        reliability, and long-term system ownership.
                     </p>
                 </div>
 
                 {/* Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                    {ACHIEVEMENTS.map((item, index) => {
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {ACHIEVEMENTS.map((item, idx) => {
                         const Icon = item.icon;
 
                         return (
                             <div
-                                key={index}
+                                key={idx}
                                 className="
-                                    relative
-                                    rounded-2xl
-                                    bg-black/60
-                                    backdrop-blur
-                                    border border-white/10
-                                    p-8
-                                    transition
-                                    hover:border-indigo-400/40
-                                "
+                  group
+                  rounded-2xl
+                  bg-black/60
+                  backdrop-blur
+                  border border-white/10
+                  p-8
+                  transition
+                  hover:border-indigo-400/40
+                  hover:shadow-lg hover:shadow-indigo-500/10
+                "
                             >
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div
-                                        className="
-                                            flex items-center justify-center
-                                            w-10 h-10 rounded-full
-                                            bg-indigo-500/10
-                                            text-indigo-400
-                                        "
-                                    >
-                                        <Icon size={20} />
-                                    </div>
+                                <div className="flex items-start justify-between gap-6 mb-6">
+                                    <div className="flex items-center gap-4">
+                                        <div
+                                            className="
+                        w-11 h-11
+                        rounded-full
+                        flex items-center justify-center
+                        bg-indigo-500/10
+                        text-indigo-400
+                      "
+                                        >
+                                            <Icon size={20} />
+                                        </div>
 
-                                    <h3 className="text-xl font-medium">
-                                        {item.title}
-                                    </h3>
+                                        <div className="space-y-2">
+                                            <ValueChip text={item.value} />
+                                            <h3 className="text-xl font-medium leading-snug">
+                                                {item.title}
+                                            </h3>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <p className="text-sm text-indigo-400 mb-6">
-                                    {item.businessValue}
+                                <p className="text-gray-300 leading-relaxed">
+                                    {item.description}
                                 </p>
 
-                                <ul className="space-y-3 text-gray-300">
-                                    {item.points.map((point, i) => (
+                                <ul className="mt-6 space-y-3 text-gray-400">
+                                    {item.highlights.map((p, i) => (
                                         <li key={i} className="leading-relaxed">
-                                            {point}
+                                            • {p}
                                         </li>
                                     ))}
                                 </ul>
@@ -126,16 +177,16 @@ export default function Achievements() {
                     })}
                 </div>
 
-                {/* NEXT ANCHOR */}
+                {/* Next anchor */}
                 <div className="mt-20 flex justify-center">
                     <a
                         href="#projects"
                         className="
-                            inline-flex items-center gap-2
-                            text-sm text-gray-500
-                            hover:text-indigo-400
-                            transition
-                        "
+              inline-flex items-center gap-2
+              text-sm text-gray-500
+              hover:text-indigo-400
+              transition
+            "
                     >
                         Next: Work <ArrowDown size={16} />
                     </a>

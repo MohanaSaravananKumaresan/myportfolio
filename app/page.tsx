@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Achievements from "@/components/Achievements";
 import Work from "@/components/Work";
+import Credentials from "@/components/Credentials";
 import Section from "@/components/Section";
 
 export default function Home() {
@@ -22,34 +23,8 @@ export default function Home() {
             {/* 3) WORK */}
             <Work />
 
-            {/* 4) CERTIFICATIONS + EDUCATION */}
-            <Section id="credentials" title="Certifications & Education" subtle>
-                <div className="space-y-10 text-gray-300 leading-relaxed">
-                    <div>
-                        <h3 className="text-xl font-medium mb-2">Certifications</h3>
-                        <p className="text-gray-400">
-                            (You’ll add your certifications here — we will format this premium later.)
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 className="text-xl font-medium mb-2">Education</h3>
-                        <p className="text-gray-400">
-                            (You’ll add your education details here — we will format this premium later.)
-                        </p>
-                    </div>
-
-                    {/* Next anchor */}
-                    <div className="mt-16 flex justify-center">
-                        <a
-                            href="#contact"
-                            className="text-sm text-gray-500 hover:text-indigo-400 transition"
-                        >
-                            Next: Contact ↓
-                        </a>
-                    </div>
-                </div>
-            </Section>
+            {/* 4) CREDENTIALS */}
+            <Credentials />
 
             {/* 5) CONTACT */}
             <Section id="contact" title="Let’s Talk" subtle>
