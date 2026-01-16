@@ -25,6 +25,7 @@ const itemVariants: Variants = {
 export default function Hero() {
     return (
         <section
+            id="overview"
             className="
                 relative z-0
                 min-h-screen px-6
@@ -107,7 +108,7 @@ export default function Hero() {
                 {/* SCROLL HOOK */}
                 <motion.a
                     variants={itemVariants}
-                    href="#experience"
+                    href="#about"
                     className="
                         mt-16
                         text-sm text-gray-500

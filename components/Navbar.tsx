@@ -19,6 +19,10 @@ const SECTION_META: Record<string, { title: string; icon: string }> = {
         title: "Work",
         icon: "https://cdn.jsdelivr.net/npm/lucide-static@0.451.0/icons/code.svg",
     },
+    credentials: {
+        title: "Credentials",
+        icon: "https://cdn.jsdelivr.net/npm/lucide-static@0.451.0/icons/graduation-cap.svg",
+    },
     contact: {
         title: "Contact",
         icon: "https://cdn.jsdelivr.net/npm/lucide-static@0.451.0/icons/mail.svg",
@@ -48,6 +52,7 @@ export default function Navbar() {
                 "about",
                 "achievements",
                 "projects",
+                "credentials",
                 "contact",
             ];
 
@@ -70,6 +75,8 @@ export default function Navbar() {
     const expanded = !scrolled || hovered;
     const meta = SECTION_META[active];
 
+    const closeMobileMenu = () => setMobileMenu(false);
+
     return (
         <>
             {/* ================= DESKTOP NAVBAR ================= */}
@@ -78,9 +85,7 @@ export default function Navbar() {
                     hidden md:block
                     fixed top-6 z-[100] isolate
                     transition-all duration-300 ease-out
-                    ${scrolled
-                    ? "left-6 translate-x-0"
-                    : "left-1/2 -translate-x-1/2"}
+                    ${scrolled ? "left-6 translate-x-0" : "left-1/2 -translate-x-1/2"}
                 `}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
@@ -114,9 +119,24 @@ export default function Navbar() {
                             <div className="w-px h-6 bg-white/30" />
 
                             <div className="flex items-center gap-10 text-sm whitespace-nowrap">
-                                <a href="#about" className="hover:text-indigo-400">About</a>
-                                <a href="#achievements" className="hover:text-indigo-400">Achievements</a>
-                                <a href="#projects" className="hover:text-indigo-400">Work</a>
+                                <a href="#about" className="hover:text-indigo-400 transition">
+                                    About
+                                </a>
+                                <a
+                                    href="#achievements"
+                                    className="hover:text-indigo-400 transition"
+                                >
+                                    Achievements
+                                </a>
+                                <a href="#projects" className="hover:text-indigo-400 transition">
+                                    Work
+                                </a>
+                                <a
+                                    href="#credentials"
+                                    className="hover:text-indigo-400 transition"
+                                >
+                                    Credentials
+                                </a>
                             </div>
 
                             <div className="w-px h-6 bg-white/30" />
@@ -124,7 +144,7 @@ export default function Navbar() {
                             <a
                                 href="/MohanaSaravanan_CV.pdf"
                                 target="_blank"
-                                className="hover:text-indigo-400 text-sm"
+                                className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
                             >
                                 Download CV
                             </a>
@@ -138,6 +158,8 @@ export default function Navbar() {
                                     bg-indigo-500/90
                                     text-sm font-medium text-white
                                     hover:bg-indigo-500
+                                    transition
+                                    whitespace-nowrap
                                 "
                             >
                                 Contact
@@ -171,25 +193,38 @@ export default function Navbar() {
             {mobileMenu && (
                 <div className="md:hidden fixed inset-0 z-[90] bg-black/80 backdrop-blur-md">
                     <div className="h-full flex flex-col items-center justify-center gap-8 text-lg text-white">
-                        <a href="#about" onClick={() => setMobileMenu(false)}>About</a>
-                        <a href="#achievements" onClick={() => setMobileMenu(false)}>Achievements</a>
-                        <a href="#projects" onClick={() => setMobileMenu(false)}>Work</a>
+                        <a href="#about" onClick={closeMobileMenu}>
+                            About
+                        </a>
+                        <a href="#achievements" onClick={closeMobileMenu}>
+                            Achievements
+                        </a>
+                        <a href="#projects" onClick={closeMobileMenu}>
+                            Work
+                        </a>
+                        <a href="#credentials" onClick={closeMobileMenu}>
+                            Credentials
+                        </a>
+
                         <a
                             href="/MohanaSaravanan_CV.pdf"
                             target="_blank"
                             className="text-indigo-400"
+                            onClick={closeMobileMenu}
                         >
                             Download CV
                         </a>
+
                         <a
                             href="#contact"
-                            onClick={() => setMobileMenu(false)}
+                            onClick={closeMobileMenu}
                             className="mt-4 px-8 py-3 rounded-full bg-indigo-500 text-white"
                         >
                             Contact
                         </a>
+
                         <button
-                            onClick={() => setMobileMenu(false)}
+                            onClick={closeMobileMenu}
                             className="mt-6 text-sm text-gray-400"
                         >
                             Close

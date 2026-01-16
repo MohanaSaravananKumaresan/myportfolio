@@ -5,9 +5,17 @@ import {
     TrendingUp,
     Wrench,
     Rocket,
+    ArrowDown,
 } from "lucide-react";
 
-const ACHIEVEMENTS = [
+type AchievementItem = {
+    title: string;
+    icon: any;
+    businessValue: string;
+    points: string[];
+};
+
+const ACHIEVEMENTS: AchievementItem[] = [
     {
         title: "Reliability & Stability",
         icon: ShieldCheck,
@@ -52,13 +60,9 @@ const ACHIEVEMENTS = [
 
 export default function Achievements() {
     return (
-        <section
-            id="achievements"
-            className="px-6 py-32 bg-black text-white"
-        >
+        <section id="achievements" className="px-6 py-32 bg-black text-white">
             <div className="max-w-6xl mx-auto">
-
-                {/* Section header */}
+                {/* Header */}
                 <div className="max-w-3xl mb-20">
                     <h2 className="text-3xl md:text-4xl font-semibold mb-6">
                         Impact & Outcomes
@@ -70,7 +74,7 @@ export default function Achievements() {
                     </p>
                 </div>
 
-                {/* Achievement blocks */}
+                {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                     {ACHIEVEMENTS.map((item, index) => {
                         const Icon = item.icon;
@@ -89,14 +93,15 @@ export default function Achievements() {
                                     hover:border-indigo-400/40
                                 "
                             >
-                                {/* Header */}
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="
-                                        flex items-center justify-center
-                                        w-10 h-10 rounded-full
-                                        bg-indigo-500/10
-                                        text-indigo-400
-                                    ">
+                                    <div
+                                        className="
+                                            flex items-center justify-center
+                                            w-10 h-10 rounded-full
+                                            bg-indigo-500/10
+                                            text-indigo-400
+                                        "
+                                    >
                                         <Icon size={20} />
                                     </div>
 
@@ -105,12 +110,10 @@ export default function Achievements() {
                                     </h3>
                                 </div>
 
-                                {/* Business value */}
                                 <p className="text-sm text-indigo-400 mb-6">
                                     {item.businessValue}
                                 </p>
 
-                                {/* Outcomes */}
                                 <ul className="space-y-3 text-gray-300">
                                     {item.points.map((point, i) => (
                                         <li key={i} className="leading-relaxed">
@@ -121,6 +124,21 @@ export default function Achievements() {
                             </div>
                         );
                     })}
+                </div>
+
+                {/* NEXT ANCHOR */}
+                <div className="mt-20 flex justify-center">
+                    <a
+                        href="#projects"
+                        className="
+                            inline-flex items-center gap-2
+                            text-sm text-gray-500
+                            hover:text-indigo-400
+                            transition
+                        "
+                    >
+                        Next: Work <ArrowDown size={16} />
+                    </a>
                 </div>
             </div>
         </section>
