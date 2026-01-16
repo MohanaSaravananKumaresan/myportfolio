@@ -15,7 +15,11 @@ export default function Contact() {
                 <div className="flex flex-wrap gap-4">
                     <a
                         href="mailto:mohanasaravanankumaresan@gmail.com"
-                        className="px-6 py-3 rounded-full bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition"
+                        className="
+              px-6 py-3 rounded-full
+              bg-indigo-500 text-white font-medium
+              hover:bg-indigo-600 transition
+            "
                     >
                         Email Me
                     </a>
@@ -23,7 +27,13 @@ export default function Contact() {
                     <a
                         href="/MohanaSaravanan_CV.pdf"
                         download
-                        className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
+                        className="
+              px-6 py-3 rounded-full
+              border border-white/20
+              text-white font-medium
+              hover:border-indigo-400 hover:text-indigo-300
+              transition
+            "
                     >
                         Download CV
                     </a>
