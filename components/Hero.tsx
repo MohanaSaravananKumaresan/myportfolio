@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import ScrollHint from "@/components/ScrollHint";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -106,19 +107,10 @@ export default function Hero() {
                 </motion.div>
 
                 {/* SCROLL HOOK */}
-                <motion.a
-                    variants={itemVariants}
+                <ScrollHint
                     href="#about"
-                    className="
-                        mt-16
-                        text-sm text-gray-500
-                        hover:text-indigo-400
-                        transition
-                        cursor-pointer
-                    "
-                >
-                    Scroll to see how I think — principles above, practice below ↓
-                </motion.a>
+                    text="Scroll to see how I think — principles above, practice below"
+                />
             </motion.div>
         </section>
     );

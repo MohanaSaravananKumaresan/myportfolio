@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowDown, GraduationCap, BadgeCheck } from "lucide-react";
+import ScrollHint from "@/components/ScrollHint";
 
 type Cert = {
     name: string;
@@ -120,17 +121,7 @@ export default function Credentials() {
 
                 {/* Next anchor */}
                 <div className="mt-20 flex justify-center">
-                    <a
-                        href="#contact"
-                        className="
-              inline-flex items-center gap-2
-              text-sm text-gray-500
-              hover:text-indigo-400
-              transition
-            "
-                    >
-                        Next: Contact <ArrowDown size={16} />
-                    </a>
+                    <ScrollHint href="#contact" text="Let’s build something together" />
                 </div>
             </div>
         </section>

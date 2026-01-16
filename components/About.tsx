@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { ArrowDown, Layers, Shield, TrendingUp, Sparkles } from "lucide-react";
+import ScrollHint from "@/components/ScrollHint";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -143,18 +144,11 @@ export default function About() {
                 </motion.div>
 
                 {/* Next anchor */}
-                <motion.div variants={itemVariants} className="mt-20 flex justify-center">
-                    <a
+                <motion.div variants={itemVariants}>
+                    <ScrollHint
                         href="#achievements"
-                        className="
-              inline-flex items-center gap-2
-              text-sm text-gray-500
-              hover:text-indigo-400
-              transition
-            "
-                    >
-                        Next: Impact & Outcomes <ArrowDown size={16} />
-                    </a>
+                        text="Business impact I delivered"
+                    />
                 </motion.div>
             </motion.div>
         </section>
