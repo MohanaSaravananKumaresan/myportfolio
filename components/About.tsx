@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { ArrowDown, Layers, Shield, TrendingUp } from "lucide-react";
+import { ArrowDown, Layers, Shield, TrendingUp, Sparkles } from "lucide-react";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -32,35 +32,33 @@ function Pill({
     return (
         <div
             className="
-                rounded-2xl
-                bg-black/60
-                backdrop-blur-xl
-                border border-white/10
-                p-6
-                transition
-                hover:border-indigo-400/40
-                hover:shadow-lg hover:shadow-indigo-500/10
-            "
+        rounded-2xl
+        bg-black/60
+        backdrop-blur-xl
+        border border-white/10
+        p-6
+        transition
+        hover:border-indigo-400/40
+        hover:shadow-lg hover:shadow-indigo-500/10
+      "
         >
             <div className="flex items-start gap-4">
                 <div
                     className="
-                        w-10 h-10
-                        flex items-center justify-center
-                        rounded-full
-                        bg-indigo-500/10
-                        text-indigo-400
-                        flex-shrink-0
-                    "
+            w-10 h-10
+            flex items-center justify-center
+            rounded-full
+            bg-indigo-500/10
+            text-indigo-400
+            flex-shrink-0
+          "
                 >
                     {icon}
                 </div>
 
                 <div>
                     <p className="text-sm font-medium text-white">{title}</p>
-                    <p className="mt-2 text-sm text-gray-400 leading-relaxed">
-                        {desc}
-                    </p>
+                    <p className="mt-2 text-sm text-gray-400 leading-relaxed">{desc}</p>
                 </div>
             </div>
         </div>
@@ -84,15 +82,15 @@ export default function About() {
                     </p>
 
                     <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
-                        I modernize backend systems
-                        <span className="text-indigo-400"> without breaking the business.</span>
+                        I build backend systems like products —
+                        <span className="text-indigo-400"> with design thinking and engineering depth.</span>
                     </h2>
 
                     <p className="mt-6 text-lg text-gray-400 leading-relaxed max-w-3xl">
-                        I’m a senior backend engineer focused on scalable architecture,
-                        modernization of legacy applications, and reliability under real-world
-                        constraints. I enjoy building systems that stay stable through growth,
-                        migrations, and constant change — not just “working in dev”.
+                        I’m a senior backend engineer who enjoys creating clean architecture,
+                        scalable APIs, and automation that makes teams faster.
+                        I don’t just “deliver tasks” — I build systems that feel intentional,
+                        reliable, and ready for what’s next.
                     </p>
                 </motion.div>
 
@@ -100,25 +98,25 @@ export default function About() {
                 <motion.div
                     variants={itemVariants}
                     className="
-                        mt-12
-                        rounded-2xl
-                        bg-black/60
-                        backdrop-blur-xl
-                        border border-white/10
-                        p-8
-                        text-gray-300
-                        leading-relaxed
-                    "
+            mt-12
+            rounded-2xl
+            bg-black/60
+            backdrop-blur-xl
+            border border-white/10
+            p-8
+            text-gray-300
+            leading-relaxed
+          "
                 >
                     <p>
-                        My work usually starts where the easy part ends — when performance degrades,
-                        releases feel risky, teams slow down because systems are fragile, and technical
-                        decisions begin to directly affect business outcomes.
+                        I love the creative part of backend engineering — turning vague problems into
+                        clear system designs, shaping patterns that other developers can reuse, and
+                        building platforms that make future features easier, not harder.
                     </p>
 
                     <p className="mt-5 text-gray-400">
-                        I care about clean boundaries, safe change, and architecture that can be explained
-                        in one whiteboard session — because that’s what scales teams, not just code.
+                        Whether it’s a new service, a modernization effort, or a reliability upgrade,
+                        my goal is the same: ship confidently, scale smoothly, and keep complexity under control.
                     </p>
                 </motion.div>
 
@@ -128,19 +126,19 @@ export default function About() {
                     className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
                 >
                     <Pill
+                        icon={<Sparkles size={18} />}
+                        title="Creative Problem Solving"
+                        desc="I turn unclear requirements into clean solutions — with thoughtful tradeoffs and practical design."
+                    />
+                    <Pill
                         icon={<Layers size={18} />}
-                        title="Modernization"
-                        desc="Turning legacy constraints into maintainable, cloud-ready foundations — without risky rewrites."
+                        title="Architecture & Systems Thinking"
+                        desc="Designing backend foundations that stay understandable, extensible, and easy to evolve."
                     />
                     <Pill
                         icon={<TrendingUp size={18} />}
-                        title="Scalability"
-                        desc="Designing services and APIs that stay predictable under growth, load, and evolving requirements."
-                    />
-                    <Pill
-                        icon={<Shield size={18} />}
-                        title="Reliability"
-                        desc="Reducing incidents, strengthening CI/CD, and building systems teams can ship confidently."
+                        title="Scale & Delivery"
+                        desc="Building predictable services and improving CI/CD so teams ship faster with confidence."
                     />
                 </motion.div>
 
@@ -149,11 +147,11 @@ export default function About() {
                     <a
                         href="#achievements"
                         className="
-                            inline-flex items-center gap-2
-                            text-sm text-gray-500
-                            hover:text-indigo-400
-                            transition
-                        "
+              inline-flex items-center gap-2
+              text-sm text-gray-500
+              hover:text-indigo-400
+              transition
+            "
                     >
                         Next: Impact & Outcomes <ArrowDown size={16} />
                     </a>
