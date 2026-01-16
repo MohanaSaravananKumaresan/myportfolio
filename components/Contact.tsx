@@ -22,8 +22,8 @@ export default function Contact() {
 
                     <a
                         href="/MohanaSaravanan_CV.pdf"
-                        target="_blank"
-                        className="px-6 py-3 rounded-full border border-white/20 hover:border-indigo-400 transition"
+                        download
+                        className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
                     >
                         Download CV
                     </a>

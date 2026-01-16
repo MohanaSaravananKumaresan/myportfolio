@@ -164,7 +164,7 @@ export default function Navbar() {
 
                             <a
                                 href="/MohanaSaravanan_CV.pdf"
-                                target="_blank"
+                                download
                                 className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
                             >
                                 Download CV
