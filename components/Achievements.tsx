@@ -1,7 +1,14 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import {
+    Sparkles,
+    Trophy,
+    Cpu,
+    Boxes,
+    ShieldCheck,
+    DollarSign,
+} from "lucide-react";
 import ScrollHint from "@/components/ScrollHint";
 
 const containerVariants: Variants = {
@@ -25,6 +32,7 @@ type Achievement = {
     value: string;
     headline: string;
     detail: string;
+    icon: React.ReactNode;
 };
 
 const ACHIEVEMENTS: Achievement[] = [
@@ -33,36 +41,42 @@ const ACHIEVEMENTS: Achievement[] = [
         headline: "Delivered client value via CI/CD automation",
         detail:
             "Automated Docker image upgrades inside pipelines, reducing manual effort, eliminating version drift, and improving deployment reliability across environments.",
+        icon: <Boxes size={18} />,
     },
     {
         value: "$0.7M",
         headline: "Simplified API access with z/OS REST integration",
         detail:
-            "Combined SAR (Service Access Representation) and AAR (API Access Representation) into a unified implementation, reducing duplication and improving developer efficiency.",
+            "Integrated SAR (Service Archive) and AAR (API Archive) into a combined z/OS REST implementation, simplifying API access and reducing duplication of effort.",
+        icon: <ShieldCheck size={18} />,
     },
     {
         value: "$0.4M",
         headline: "Accelerated validation through internal testing tools",
         detail:
-            "Built tooling to streamline functional + integration testing, enabling faster cycles and smoother onboarding for new developers.",
+            "Built internal testing tools to streamline functional + integration testing, enabling faster validation cycles and smoother onboarding for new developers.",
+        icon: <Sparkles size={18} />,
     },
     {
         value: "AI boost",
         headline: "Improved test automation with Copilot Chat",
         detail:
-            "Integrated GitHub Copilot Chat into automation workflows for faster debugging, smarter test generation, and improved coverage with less manual effort.",
+            "Integrated GitHub Copilot Chat AI into test automation workflows for intelligent test case generation, faster debugging, and automated code suggestions to improve coverage.",
+        icon: <Cpu size={18} />,
     },
     {
         value: "$0.4M",
-        headline: "Raised delivery quality with Spotless enforcement",
+        headline: "Improved delivery quality with Spotless enforcement",
         detail:
-            "Created additional Gradle Spotless scripts for formatting + verification, ensuring consistent standards and reducing review overhead.",
+            "Created additional Gradle Spotless scripts for automated code formatting and verification, ensuring consistent standards and reducing review overhead.",
+        icon: <DollarSign size={18} />,
     },
     {
         value: "Awards",
         headline: "Recognized for innovation & efficiency",
         detail:
-            "Received USAA ‘Excellence Award’ and ‘4ward Award’ for consistent improvements in secure application development.",
+            "Recognized with USAA ‘Excellence Award’ and ‘4ward Award’ for innovation and efficiency improvements in secure application development.",
+        icon: <Trophy size={18} />,
     },
 ];
 
@@ -70,7 +84,7 @@ function AchievementCard({ item }: { item: Achievement }) {
     return (
         <div
             className="
-        group
+        group relative
         rounded-2xl
         bg-black/60
         backdrop-blur-xl
@@ -79,22 +93,52 @@ function AchievementCard({ item }: { item: Achievement }) {
         transition
         hover:border-indigo-400/40
         hover:shadow-lg hover:shadow-indigo-500/10
+        overflow-hidden
       "
         >
-            <div className="flex items-start justify-between gap-6">
+            {/* subtle glow */}
+            <div
+                className="
+          pointer-events-none absolute inset-0 opacity-0
+          group-hover:opacity-100 transition duration-300
+        "
+            >
+                <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-indigo-500/12 blur-3xl" />
+                <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-indigo-500/10 blur-3xl" />
+            </div>
+
+            <div className="relative flex items-start gap-4">
+                {/* icon badge */}
+                <div
+                    className="
+            w-10 h-10
+            flex items-center justify-center
+            rounded-full
+            bg-indigo-500/10
+            border border-indigo-400/20
+            text-indigo-300
+            flex-shrink-0
+            group-hover:border-indigo-400/40
+            transition
+          "
+                >
+                    {item.icon}
+                </div>
+
                 <div>
-                    <p className="text-indigo-300 text-sm font-medium">{item.value}</p>
+                    <p className="text-indigo-300 text-sm font-medium tracking-wide">
+                        {item.value}
+                    </p>
+
                     <h3 className="mt-2 text-lg font-medium text-white leading-snug">
                         {item.headline}
                     </h3>
-                </div>
 
-                <div className="opacity-30 group-hover:opacity-90 transition">
-                    <ArrowUpRight size={18} />
+                    <p className="mt-4 text-sm text-gray-400 leading-relaxed">
+                        {item.detail}
+                    </p>
                 </div>
             </div>
-
-            <p className="mt-4 text-sm text-gray-400 leading-relaxed">{item.detail}</p>
         </div>
     );
 }
@@ -120,9 +164,8 @@ export default function Achievements() {
                     </h2>
 
                     <p className="mt-6 text-lg text-gray-400 leading-relaxed">
-                        These are a few moments where engineering decisions turned into real
-                        value — faster delivery, safer releases, and better reliability at
-                        scale.
+                        These are moments where engineering decisions turned into real value
+                        — faster delivery, safer releases, and better reliability at scale.
                     </p>
                 </motion.div>
 
