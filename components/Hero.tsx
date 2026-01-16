@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import ScrollHint from "@/components/ScrollHint";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -24,8 +24,77 @@ const itemVariants: Variants = {
     },
 };
 
+function GlassPill({
+                       children,
+                       compact = false,
+                   }: {
+    children: React.ReactNode;
+    compact?: boolean;
+}) {
+    return (
+        <div
+            className={`
+        inline-flex items-center gap-2
+        rounded-full
+        bg-black/70
+        backdrop-blur-xl
+        border border-white/15
+        shadow-lg shadow-black/50
+        hover:border-white/25
+        transition-all duration-300 ease-out
+        ${compact ? "px-3 py-2" : "px-4 py-2"}
+      `}
+        >
+            {children}
+        </div>
+    );
+}
+
 export default function Hero() {
     const [avatarSwitched, setAvatarSwitched] = useState(false);
+
+    // View count (Option A - local unique counter)
+    const [uniqueViews, setUniqueViews] = useState<number>(0);
+
+    // shrink pills after scroll
+    const [pillCompact, setPillCompact] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => {
+            setPillCompact(window.scrollY > 60);
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    useEffect(() => {
+        try {
+            const KEY = "ms_portfolio_unique_views_v1";
+            const existing = localStorage.getItem(KEY);
+
+            if (!existing) {
+                localStorage.setItem(KEY, "1");
+                setUniqueViews(1);
+                return;
+            }
+
+            const n = Number(existing);
+            const next = Number.isFinite(n) ? n + 1 : 1;
+            localStorage.setItem(KEY, String(next));
+            setUniqueViews(next);
+        } catch {
+            // ignore (privacy mode / blocked storage)
+        }
+    }, []);
+
+    const viewText = useMemo(() => {
+        if (!uniqueViews) return "—";
+        if (uniqueViews < 10) return `0${uniqueViews}`;
+        return `${uniqueViews}`;
+    }, [uniqueViews]);
 
     useEffect(() => {
         const aboutEl = document.getElementById("about");
@@ -42,7 +111,6 @@ export default function Hero() {
                 }
             },
             {
-                // Trigger when About section enters viewport (tweak if needed)
                 threshold: 0.25,
             }
         );
@@ -73,6 +141,29 @@ export default function Hero() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     {/* HERO TEXT */}
                     <motion.div variants={itemVariants}>
+                        {/* PILLS (always ABOVE hero text, both mobile + desktop) */}
+                        <div className="flex items-center gap-3 mb-6">
+                            {/* STATUS */}
+                            <GlassPill compact={pillCompact}>
+                                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400" />
+                                {!pillCompact && (
+                                    <span className="text-gray-300 text-xs md:text-sm">
+                    Job Hunting
+                  </span>
+                                )}
+                            </GlassPill>
+
+                            {/* VIEWS */}
+                            <GlassPill compact={pillCompact}>
+                                {!pillCompact && (
+                                    <span className="text-gray-400 text-xs md:text-sm">Views</span>
+                                )}
+                                <span className="text-indigo-300 font-medium text-xs md:text-sm">
+                  {viewText}
+                </span>
+                            </GlassPill>
+                        </div>
+
                         <h1 className="text-3xl md:text-5xl font-semibold leading-tight max-w-4xl">
                             I design backend systems
                             <br />
@@ -127,7 +218,6 @@ export default function Hero() {
                   shadow-xl shadow-black/60
                 "
                             >
-                                {/* Smooth swap */}
                                 <motion.img
                                     key={avatarSwitched ? "alt" : "main"}
                                     src={avatarSwitched ? "/thank you.png" : "/hey.png"}
@@ -139,7 +229,6 @@ export default function Hero() {
                                 />
                             </motion.div>
 
-                            {/* Soft glow behind */}
                             <div
                                 className="
                   absolute -inset-10
