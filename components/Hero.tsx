@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import ScrollHint from "@/components/ScrollHint";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -53,9 +53,6 @@ function GlassPill({
 export default function Hero() {
     const [avatarSwitched, setAvatarSwitched] = useState(false);
 
-    // View count (Option A - local unique counter)
-    const [uniqueViews, setUniqueViews] = useState<number>(0);
-
     // shrink pills after scroll
     const [pillCompact, setPillCompact] = useState(false);
 
@@ -69,32 +66,6 @@ export default function Hero() {
 
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
-
-    useEffect(() => {
-        try {
-            const KEY = "ms_portfolio_unique_views_v1";
-            const existing = localStorage.getItem(KEY);
-
-            if (!existing) {
-                localStorage.setItem(KEY, "1");
-                setUniqueViews(1);
-                return;
-            }
-
-            const n = Number(existing);
-            const next = Number.isFinite(n) ? n + 1 : 1;
-            localStorage.setItem(KEY, String(next));
-            setUniqueViews(next);
-        } catch {
-            // ignore (privacy mode / blocked storage)
-        }
-    }, []);
-
-    const viewText = useMemo(() => {
-        if (!uniqueViews) return "—";
-        if (uniqueViews < 10) return `0${uniqueViews}`;
-        return `${uniqueViews}`;
-    }, [uniqueViews]);
 
     useEffect(() => {
         const aboutEl = document.getElementById("about");
@@ -151,16 +122,6 @@ export default function Hero() {
                     Job Hunting
                   </span>
                                 )}
-                            </GlassPill>
-
-                            {/* VIEWS */}
-                            <GlassPill compact={pillCompact}>
-                                {!pillCompact && (
-                                    <span className="text-gray-400 text-xs md:text-sm">Views</span>
-                                )}
-                                <span className="text-indigo-300 font-medium text-xs md:text-sm">
-                  {viewText}
-                </span>
                             </GlassPill>
                         </div>
 
