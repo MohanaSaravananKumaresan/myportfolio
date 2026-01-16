@@ -333,9 +333,8 @@ export default function Navbar() {
 
                                     <a
                                         href="/MohanaSaravanan_CV.pdf"
-                                        target="_blank"
-                                        onClick={closeMobileMenu}
-                                        className="py-2 text-indigo-200 hover:text-indigo-100 transition"
+                                        download
+                                        className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
                                     >
                                         Download CV
                                     </a>
