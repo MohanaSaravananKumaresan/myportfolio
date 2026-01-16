@@ -5,6 +5,7 @@ import Achievements from "@/components/Achievements";
 import Work from "@/components/Work";
 import Credentials from "@/components/Credentials";
 import Section from "@/components/Section";
+import Footer from "@/components/Footer";
 
 export default function Home() {
     return (
@@ -55,28 +56,7 @@ export default function Home() {
             </Section>
 
             {/* FOOTER */}
-            <footer className="mt-32 py-12 border-t border-white/10">
-                <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-sm text-gray-400">
-                        © {new Date().getFullYear()} Mohana Saravanan. All rights reserved.
-                    </p>
-
-                    <div className="flex gap-6 text-sm">
-                        <a href="#" className="hover:text-indigo-400 transition">
-                            GitHub
-                        </a>
-                        <a href="#" className="hover:text-indigo-400 transition">
-                            LinkedIn
-                        </a>
-                        <a
-                            href="mailto:your.email@example.com"
-                            className="hover:text-indigo-400 transition"
-                        >
-                            Email
-                        </a>
-                    </div>
-                </div>
-            </footer>
+            <Footer/>
         </main>
     );
 }
