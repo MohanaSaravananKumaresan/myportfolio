@@ -14,15 +14,19 @@ export default function Contact() {
 
                 <div className="flex flex-wrap gap-4">
                     <a
-                        href="mailto:mohanasaravanankumaresan@gmail.com"
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=mohanasaravanankumaresan@gmail.com&su=Portfolio%20Contact&body=Hi%20MohanaSaravanan%2C%0A%0AI%20went%20through%20your%20portfolio%20and%20wanted%20to%20connect.%0A%0A-%20"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="
-              px-6 py-3 rounded-full
-              bg-indigo-500 text-white font-medium
-              hover:bg-indigo-600 transition
-            "
+    px-6 py-3 rounded-full
+    bg-indigo-500 text-white font-medium
+    hover:bg-indigo-600 transition
+  "
                     >
                         Email Me
                     </a>
+
+
 
                     <a
                         href="/MohanaSaravanan_CV.pdf"
