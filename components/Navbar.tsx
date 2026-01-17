@@ -37,6 +37,9 @@ export default function Navbar() {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
 
+    // compact mode for narrow screens (icon-only pill)
+    const [isCompact, setIsCompact] = useState(false);
+
     const openMobileMenu = () => {
         setMobileMenu(true);
         requestAnimationFrame(() => setMobileMenuVisible(true));
@@ -97,8 +100,31 @@ export default function Navbar() {
         };
     }, [mobileMenu]);
 
+    // ===== Responsive compact detection =====
+    useEffect(() => {
+        const update = () => {
+            // compact layout for very narrow phones
+            setIsCompact(window.innerWidth < 380);
+        };
+
+        update();
+        window.addEventListener("resize", update);
+        return () => window.removeEventListener("resize", update);
+    }, []);
+
     const expanded = !scrolled || hovered;
     const meta = SECTION_META[active];
+
+    // mobile positioning: bottom-center by default; move to top-left when scrolled
+    const mobilePositionClass = scrolled
+        ? "top-6 left-4 -translate-x-0"
+        : "bottom-6 left-1/2 -translate-x-1/2";
+
+    const mobileButtonSizeClass = scrolled
+        ? isCompact
+            ? "px-2 py-1 text-xs"
+            : "px-3 py-1.5 text-sm"
+        : "px-3 py-2 text-sm";
 
     return (
         <>
@@ -106,7 +132,7 @@ export default function Navbar() {
             <nav
                 className={`
           hidden md:block
-          fixed top-6 z-[1000] isolate
+          fixed top-6 z-1000 isolate
           transition-all duration-300 ease-out
           ${scrolled ? "left-6 translate-x-0" : "left-1/2 -translate-x-1/2"}
         `}
@@ -128,7 +154,7 @@ export default function Navbar() {
                     <img
                         src={meta.icon}
                         alt=""
-                        className="w-7 h-7 invert opacity-90 flex-shrink-0"
+                        className="w-7 h-7 invert opacity-90 shrink-0"
                     />
 
                     <span className="text-base font-medium tracking-wide text-white whitespace-nowrap">
@@ -190,117 +216,57 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* ================= MOBILE NAVBAR ================= */}
-            <nav className="md:hidden fixed top-4 right-4 z-[1000]">
-                <button
-                    onClick={openMobileMenu}
-                    className="
-            w-12 h-12
-            flex items-center justify-center
-            rounded-full
-            bg-black/70
-            backdrop-blur-xl
-            border border-white/20
-            shadow-lg
-            text-white text-xl
-            active:scale-95
-            transition
-          "
-                    aria-label="Open menu"
-                >
-                    ☰
-                </button>
+            {/* ================= MOBILE NAVBAR (PILL STYLE) ================= */}
+            <nav
+                className={`md:hidden fixed z-1000 ${mobilePositionClass} transition-all duration-300`}
+            >
+                <div className="flex items-center justify-center">
+                    <button
+                        onClick={openMobileMenu}
+                        aria-label="Open navigation"
+                        aria-expanded={mobileMenuVisible}
+                        className={`${mobileButtonSizeClass} flex items-center gap-3 rounded-full bg-black/70 backdrop-blur-xl border border-white/20 text-white transition active:scale-95`}
+                    >
+                        <img
+                            src={meta.icon}
+                            alt=""
+                            className={`w-5 h-5 invert opacity-90 shrink-0 ${isCompact ? "w-4 h-4" : "w-5 h-5"}`}
+                        />
+
+                        {!isCompact && (
+                            <span className="text-sm font-medium tracking-wide whitespace-nowrap">
+                                {meta.title}
+                            </span>
+                        )}
+                    </button>
+                </div>
             </nav>
 
-            {/* ================= MOBILE MENU (BLUR BACKGROUND) ================= */}
+            {/* ================= MOBILE PILL MENU (COMPACT PANEL ABOVE PILL) ================= */}
             {mobileMenu && (
-                <div className="md:hidden fixed inset-0 z-[9999]">
-                    {/* 🔥 BLUR OVERLAY */}
+                <div className="md:hidden fixed inset-0 z-9999">
+                    {/* dim overlay */}
                     <div
-                        className={`
-              absolute inset-0
-              bg-black/25
-              backdrop-blur-lg
-              transition-opacity duration-200
-              ${mobileMenuVisible ? "opacity-100" : "opacity-0"}
-            `}
+                        className={`absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-200 ${
+                            mobileMenuVisible ? "opacity-100" : "opacity-0"
+                        }`}
                         onClick={closeMobileMenu}
                     />
 
-                    {/* Glass Panel */}
+                    {/* pill panel anchored above bottom center */}
                     <div
-                        className={`
-              absolute top-4 left-4 right-4
-              transition-all duration-200 ease-out
-              ${mobileMenuVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
-            `}
+                        className={`absolute left-1/2 -translate-x-1/2 bottom-6 w-[calc(100%-48px)] max-w-2xl transition-all duration-200 ease-out ${
+                            mobileMenuVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        }`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div
-                            className="
-                relative overflow-hidden
-                rounded-[30px]
-                bg-white/10
-                backdrop-blur-2xl
-                border border-white/20
-                shadow-2xl shadow-black/50
-              "
-                        >
-                            {/* Specular highlight */}
-                            <div
-                                className="
-                  pointer-events-none
-                  absolute -top-20 left-1/2
-                  h-44 w-[520px]
-                  -translate-x-1/2
-                  rounded-full
-                  bg-white/12
-                  blur-2xl
-                "
-                            />
-
-                            {/* Inner edge glow */}
-                            <div
-                                className="
-                  pointer-events-none
-                  absolute inset-0
-                  rounded-[30px]
-                  ring-1 ring-white/15
-                "
-                            />
-
-                            <div className="relative px-6 py-6">
-                                {/* Top row */}
-                                <div className="flex items-center justify-between">
-                                    <p className="text-sm text-white/80 tracking-wide">
-                                        Navigation
-                                    </p>
-
-                                    <button
-                                        onClick={closeMobileMenu}
-                                        className="
-                      w-10 h-10
-                      rounded-full
-                      bg-white/10
-                      border border-white/20
-                      text-white text-xl
-                      flex items-center justify-center
-                      hover:border-indigo-400/40
-                      transition
-                      active:scale-95
-                    "
-                                        aria-label="Close menu"
-                                    >
-                                        ✕
-                                    </button>
-                                </div>
-
-                                {/* Links */}
-                                <div className="mt-6 flex flex-col gap-4 text-white">
+                        <div className="relative px-2">
+                            <div className="overflow-hidden rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-black/50">
+                                <div className="flex items-center gap-2 px-3 py-2 overflow-x-auto scrollbar-hide">
                                     <a
                                         href="#about"
                                         onClick={closeMobileMenu}
-                                        className="py-2 hover:text-indigo-300 transition"
+                                        className="shrink-0 px-3 py-2 rounded-full text-sm text-white hover:bg-white/5 transition"
                                     >
                                         About
                                     </a>
@@ -308,7 +274,7 @@ export default function Navbar() {
                                     <a
                                         href="#achievements"
                                         onClick={closeMobileMenu}
-                                        className="py-2 hover:text-indigo-300 transition"
+                                        className="shrink-0 px-3 py-2 rounded-full text-sm text-white hover:bg-white/5 transition"
                                     >
                                         Achievements
                                     </a>
@@ -316,7 +282,7 @@ export default function Navbar() {
                                     <a
                                         href="#projects"
                                         onClick={closeMobileMenu}
-                                        className="py-2 hover:text-indigo-300 transition"
+                                        className="shrink-0 px-3 py-2 rounded-full text-sm text-white hover:bg-white/5 transition"
                                     >
                                         Work
                                     </a>
@@ -324,43 +290,34 @@ export default function Navbar() {
                                     <a
                                         href="#credentials"
                                         onClick={closeMobileMenu}
-                                        className="py-2 hover:text-indigo-300 transition"
+                                        className="shrink-0 px-3 py-2 rounded-full text-sm text-white hover:bg-white/5 transition"
                                     >
                                         Credentials
                                     </a>
 
-                                    <div className="mt-2 h-px bg-white/15" />
+                                    <div className="h-6 w-px bg-white/10 mx-1" />
 
                                     <a
                                         href="/MohanaSaravanan_CV.pdf"
                                         download
-                                        className="hover:text-indigo-400 transition text-sm whitespace-nowrap"
+                                        className="shrink-0 px-3 py-2 rounded-full text-sm text-white hover:text-indigo-400 transition"
                                     >
-                                        Download CV
+                                        CV
                                     </a>
 
                                     <a
                                         href="#contact"
                                         onClick={closeMobileMenu}
-                                        className="
-                      mt-2
-                      inline-flex items-center justify-center
-                      px-6 py-3
-                      rounded-full
-                      bg-indigo-500/85
-                      text-white font-medium
-                      hover:bg-indigo-500
-                      transition
-                      active:scale-95
-                    "
+                                        className="shrink-0 ml-auto px-4 py-2 rounded-full bg-indigo-500/90 text-sm font-medium text-white hover:bg-indigo-500 transition"
                                     >
                                         Contact
                                     </a>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="mt-3 mx-auto h-1 w-16 rounded-full bg-white/15" />
+                            {/* decorative small handle under panel to match pill look */}
+                            <div className="mt-3 mx-auto h-1 w-16 rounded-full bg-white/15" />
+                        </div>
                     </div>
                 </div>
             )}
