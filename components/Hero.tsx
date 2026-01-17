@@ -125,12 +125,12 @@ export default function Hero() {
                             </GlassPill>
                         </div>
 
-                        <h1 className="text-3xl md:text-5xl font-semibold leading-tight max-w-4xl">
-                            I design backend systems
+                        <h1 className="text-2xl md:text-4xl font-semibold leading-tight max-w-4xl">
+                            I build backend systems
                             <br />
-                            that are meant to{" "}
+                            that <span className="text-indigo-400">scale</span>, <span className="text-indigo-400">endure</span>, and <span className="text-indigo-400">evolve</span> — from day one to{" "}
                             <span className="relative text-indigo-400 tracking-tight">
-                last.
+                decade ten.
                 <span
                     className="
                     absolute left-0 -bottom-1
@@ -144,9 +144,8 @@ export default function Hero() {
               </span>
                         </h1>
 
-                        <p className="mt-10 text-lg text-gray-400 max-w-2xl leading-relaxed">
-                            Not just until launch — but through growth, rewrites, migrations,
-                            and the moments where assumptions break.
+                        <p className="mt-10 text-lg text-gray-400 max-w-1xl leading-relaxed">
+                            Built for day one speed — and day 1000 scale.
                         </p>
                     </motion.div>
 

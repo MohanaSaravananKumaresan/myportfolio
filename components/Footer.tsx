@@ -12,7 +12,7 @@ export default function Footer() {
                     <span className="text-white/80">TypeScript</span>,{" "}
                     <span className="text-white/80">Tailwind CSS</span>,{" "}
                     <span className="text-white/80">Framer Motion</span> — deployed as a
-                    fast, responsive, recruiter-friendly portfolio.
+                    fast and responsive portfolio.
                 </p>
 
                 {/* Divider */}
@@ -99,8 +99,6 @@ export default function Footer() {
                         >
                             <Instagram size={18} />
                         </a>
-
-                        {/* GitHub (I don't know your URL yet, so keeping it safe) */}
                         <a
                             href="https://github.com/MohanaSaravananKumaresan"
                             target="_blank"
