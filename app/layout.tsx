@@ -12,15 +12,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Use SITE_URL environment variable in production. Falls back to localhost for dev.
-const siteUrl = process.env.SITE_URL || "http://localhost:3000";
+// Always prefer production domain from env vars.
+// NEVER fallback to localhost in metadata, canonical, OG, or JSON-LD.
+const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_URL ||
+    "https://mohanasaravanan.in";
+
+const canonicalUrl = `${siteUrl}/`;
 
 export const metadata: Metadata = {
   title: "Mohana Saravanan | Senior Backend Engineer",
   description:
-    "Portfolio of Mohana Saravanan — Senior Backend Engineer with 5+ years of experience building scalable, secure REST APIs and microservices using Java (Spring Boot), Go, Node.js, cloud-native patterns and observability on AWS.",
+      "Portfolio of Mohana Saravanan — Senior Backend Engineer with 5+ years of experience building scalable, secure REST APIs and microservices using Java (Spring Boot), Go, Node.js, cloud-native patterns and observability on AWS.",
   keywords: [
-    // Keywords aligned to the CV contents
     "Mohana Saravanan",
     "Senior Backend Engineer",
     "Backend Engineer",
@@ -56,18 +61,20 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mohana Saravanan" }],
   themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }],
+
   alternates: {
-    canonical: siteUrl,
+    canonical: canonicalUrl,
   },
+
   openGraph: {
     title: "Mohana Saravanan | Senior Backend Engineer",
     description:
-      "Senior Backend Engineer portfolio — scalable REST APIs and microservices (Java Spring Boot, Go, Node.js), AWS cloud-native architectures, Kafka, PostgreSQL, Docker, Kubernetes, and observability.",
-    url: siteUrl,
+        "Senior Backend Engineer portfolio — scalable REST APIs and microservices (Java Spring Boot, Go, Node.js), AWS cloud-native architectures, Kafka, PostgreSQL, Docker, Kubernetes, and observability.",
+    url: canonicalUrl,
     siteName: "Mohana Saravanan",
     images: [
       {
-        url: siteUrl + "/hey.png",
+        url: `${siteUrl}/hey.png`,
         width: 1200,
         height: 630,
         alt: "Mohana Saravanan",
@@ -76,13 +83,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Mohana Saravanan | Senior Backend Engineer",
     description:
-      "Senior Backend Engineer — REST APIs, microservices, Kafka, PostgreSQL, Docker, Kubernetes, AWS, and observability.",
-    images: ["/hey.png"],
+        "Senior Backend Engineer — REST APIs, microservices, Kafka, PostgreSQL, Docker, Kubernetes, AWS, and observability.",
+    images: [`${siteUrl}/hey.png`],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -97,24 +106,24 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // JSON-LD structured data to help search engines and recruiters pick up resume/profile details
+  // JSON-LD structured data for SEO / rich results
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Mohana Saravanan",
     jobTitle: "Senior Software Engineer - Backend",
-    url: siteUrl,
+    url: canonicalUrl,
     description:
-      "Portfolio of Mohana Saravanan — Senior Backend Engineer experienced in building scalable APIs and backend services using Java (Spring Boot), Go, Node.js, databases (PostgreSQL, DynamoDB), Kafka, and AWS cloud-native patterns.",
-    image: siteUrl + "/hey.png",
-    // Primary public profiles and portfolio
+        "Portfolio of Mohana Saravanan — Senior Backend Engineer experienced in building scalable APIs and backend services using Java (Spring Boot), Go, Node.js, databases (PostgreSQL, DynamoDB), Kafka, and AWS cloud-native patterns.",
+    image: `${siteUrl}/hey.png`,
+    mainEntityOfPage: canonicalUrl,
     sameAs: [
       "https://www.linkedin.com/in/mohana-saravanan-kumaresan-5134aa197",
-      siteUrl,
+      canonicalUrl,
     ],
     contactPoint: [
       {
@@ -158,25 +167,23 @@ export default function RootLayout({
       "scalability",
       "performance",
     ],
-    // link to the resume hosted in public folder
-    sameAsContact: siteUrl + "/MohanaSaravanan_CV.pdf",
   } as const;
 
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Expose CV to crawlers and tools via link rel=author */}
-        <link rel="author" href="/MohanaSaravanan_CV.pdf" />
-        <link rel="canonical" href={siteUrl} />
-        <meta name="author" content="Mohana Saravanan" />
-        <script
+      <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/* Expose CV */}
+      <link rel="author" href="/MohanaSaravanan_CV.pdf" />
+      <link rel="canonical" href={canonicalUrl} />
+      <meta name="author" content="Mohana Saravanan" />
+
+      <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {children}
+      />
+
+      {children}
       </body>
-    </html>
+      </html>
   );
 }
