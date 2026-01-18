@@ -15,6 +15,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - [Available Scripts](#available-scripts)
 - [Learn More](#learn-more)
 - [Deployment](#deployment)
+- [SEO & Visibility](#seo--visibility)
 
 ---
 
@@ -202,6 +203,44 @@ To learn more about the technologies used in this project, check out the followi
 ## Deployment
 
 This app is deployed on **Vercel**. You can deploy your own version by connecting your GitHub repository to Vercel and following the deployment instructions.
+
+---
+
+## SEO & Visibility
+
+This project includes additional SEO and visibility features to make your portfolio and CV easy for recruiters and search engines to find:
+
+- `/sitemap.xml` — A generated sitemap listing main pages and the CV (`MohanaSaravanan_CV.pdf`) so search engines can discover all public assets.
+- `/robots.txt` — Allows crawling of the site and points to the sitemap.
+- JSON-LD structured data — The site embeds Person schema data (name, description, image, and a link to the CV) to help search engines and aggregator services better understand the profile.
+- CV link — The resume PDF is hosted at `/MohanaSaravanan_CV.pdf` in the `public/` folder and is referenced from the site metadata.
+
+How to set the public site URL (important for social previews and sitemap links):
+
+- Set the environment variable `SITE_URL` to your production domain (for example `https://yourdomain.com`) before build/deploy so sitemap entries and Open Graph image URLs use the correct domain.
+
+  Example (Windows cmd.exe):
+  ```cmd
+  set SITE_URL=https://yourdomain.com && npm run build && npm start
+  ```
+
+Testing locally:
+
+- Start dev server:
+  ```cmd
+  npm run dev
+  ```
+- Check the generated sitemap:
+  - http://localhost:3000/sitemap.xml
+- Check the robots file:
+  - http://localhost:3000/robots.txt
+- Check CV accessibility:
+  - http://localhost:3000/MohanaSaravanan_CV.pdf
+
+If you'd like, I can:
+- Automatically generate sitemap entries from your actual `app/*/page.tsx` files or dynamic content.
+- Add richer JSON-LD fields taken from the `README.md` or the CV PDF (for example, work history, education). For the CV, I can extract basic metadata if you want me to parse the PDF and populate structured fields.
+- Add a small deploy script or Vercel configuration step to automatically set `SITE_URL` and ping search engines with the sitemap after deployment.
 
 ---
 
