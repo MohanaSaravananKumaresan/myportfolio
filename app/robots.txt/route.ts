@@ -1,21 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-const SITE_URL = process.env.SITE_URL || 'http://localhost:3000';
+const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_URL ||
+    "https://mohanasaravanan.in";
 
 export async function GET() {
   const content = `User-agent: *
 Allow: /
 
 Sitemap: ${SITE_URL}/sitemap.xml
-
-# Allow public access for recruiters and bots
-User-agent: AdsBot-Google
-Allow: /
 `;
 
   return new NextResponse(content, {
     headers: {
-      'Content-Type': 'text/plain',
+      "Content-Type": "text/plain; charset=utf-8",
     },
   });
 }
